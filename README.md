@@ -1,8 +1,8 @@
-# Creating a RAG Chatbot With GPT-4o Using SERP Data
+# SERPデータを使用してGPT-4oでRAGチャットボットを作成する
 
-[![Promo](https://media.brightdata.com/2025/08/SERP-API-50-off-GitHub-banner_1389_166.png)](https://brightdata.com/) 
+[![Promo](https://media.brightdata.com/2025/08/SERP-API-50-off-GitHub-banner_1389_166.png)](https://brightdata.jp/) 
 
-This guide explain how to build a Python RAG chatbot using GPT-4o and Bright Data’s SERP API for more accurate, context-rich AI responses.
+このガイドでは、より正確でコンテキストが豊富なAIレスポンスを得るために、GPT-4oとBright DataのSERP APIを使用してPythonのRAGチャットボットを構築する方法を説明します。
 
 1. [Introduction](#how-to-creating-a-rag-chatbot-with-gpt-4o-using-serp-data)
 2. [What Is RAG?](#what-is-rag)
@@ -23,44 +23,44 @@ This guide explain how to build a Python RAG chatbot using GPT-4o and Bright Dat
 
 ## What Is RAG?
 
-RAG, short for [Retrieval-Augmented Generation](https://blogs.nvidia.comhttps://brightdata.com/blog/what-is-retrieval-augmented-generation/), is an AI approach that combines information retrieval with text generation. In a RAG workflow, the application first retrieves relevant data from external sources—such as documents, web pages, or databases. Then, it passes data to the AI models so that it can generate more contextually relevant responses.
+RAGは、[Retrieval-Augmented Generation](https://blogs.nvidia.comhttps://brightdata.jp/blog/what-is-retrieval-augmented-generation/)（検索拡張生成）の略で、情報検索とテキスト生成を組み合わせたAIアプローチです。RAGワークフローでは、アプリケーションがまず、ドキュメント、Webページ、データベースなどの外部ソースから関連データを取得します。その後、そのデータをAIモデルに渡し、よりコンテキストに即したレスポンスを生成できるようにします。
 
-RAG enhances large language models (LLMs) like GPT by enabling them to access and reference up-to-date information beyond their original training data. This approach is key in scenarios where precise and context-specific information is needed, as it improves both the quality and accuracy of AI-generated responses.
+RAGは、GPTのような大規模言語モデル（LLM）が、元の学習データを超えて最新情報へアクセスして参照できるようにすることで強化します。このアプローチは、正確でコンテキスト特化の情報が必要なシナリオで重要であり、AI生成レスポンスの品質と精度の両方を改善します。
 
 ## Why Feed AI Models With SERP Data
 
-The knowledge cutoff date for GPT-4o is [October 2023](https://computercity.com/artificial-intelligence/knowledge-cutoff-dates-llms), meaning it lacks access to events or information that came out after that time. However, [GPT-4o models](https://openai.com/index/hello-gpt-4o/) can pull in data from the Internet in real-time using Bing search integration. That helps them offer more up-to-date information and responses that are detailed, precise, and contextually rich.
+GPT-4oのknowledge cutoff dateは[October 2023](https://computercity.com/artificial-intelligence/knowledge-cutoff-dates-llms)であり、その時点以降に出た出来事や情報にはアクセスできないことを意味します。しかし、[GPT-4o models](https://openai.com/index/hello-gpt-4o/)はBing検索連携を使用してインターネットからリアルタイムにデータを取り込むことができます。これにより、より最新の情報を提供でき、詳細で正確、かつコンテキストが豊富なレスポンスを提示しやすくなります。
 
 ## RAG With SERP Data With GPT Models Using Python: Step-By-Step Tutorial
 
-This tutorial guides through building a RAG chatbot using OpenAI’s GPT models. The idea is to gather text from the top-performing pages on Google for a specific search query and use it as the context for a GPT request.
+このチュートリアルでは、OpenAIのGPTモデルを使用してRAGチャットボットを構築する手順を案内します。アイデアは、特定の検索クエリに対してGoogleで上位表示されるページからテキストを収集し、それをGPTリクエストのコンテキストとして使用することです。
 
-The biggest challenge is scraping SERP data. Most search engines come with advanced anti-bot solutions to prevent automated access to their pages. For detailed guidance, refer to our guide on [how to scrape Google in Python](https://brightdata.com/blog/web-data/scraping-google-with-python).
+最大の課題はSERPデータのスクレイピングです。多くの検索エンジンには、自動アクセスを防ぐための高度なアンチボットソリューションが組み込まれています。詳細なガイダンスについては、[how to scrape Google in Python](https://brightdata.jp/blog/web-data/scraping-google-with-python)のガイドをご参照ください。
 
-To simplify the scraping process, we will use [Bright Data’s SERP API](https://brightdata.com/products/serp-api).
+スクレイピングプロセスを簡素化するために、[Bright Data’s SERP API](https://brightdata.jp/products/serp-api)を使用します。
 
-This SERP scraper allows you to easily retrieve SERPs from Google, DuckDuckGo, Bing, Yandex, Baidu, and other search engines using simple HTTP requests.
+このSERPスクレイパーを使用すると、シンプルなHTTPリクエストでGoogle、DuckDuckGo、Bing、Yandex、Baidu、その他の検索エンジンからSERPを簡単に取得できます。
 
-We will then extract text data from the returned URLs using a [headless browser](https://brightdata.com/blog/web-data/best-headless-browsers). Then, we will use that information as the context for the GPT model in a RAG workflow. If you instead want to retrieve online data directly using AI, read our article on [web scraping with ChatGPT](https://brightdata.com/blog/web-data/web-scraping-with-chatgpt).
+続いて、返されたURLから[headless browser](https://brightdata.jp/blog/web-data/best-headless-browsers)を使用してテキストデータを抽出します。その後、その情報をRAGワークフローにおけるGPTモデルのコンテキストとして使用します。代わりにAIを使用してオンラインデータを直接取得したい場合は、[web scraping with ChatGPT](https://brightdata.jp/blog/web-data/web-scraping-with-chatgpt)に関する記事をご覧ください。
 
-All the code in this guide is also available in a GitHub repository:
+このガイド内のコードはすべて、GitHubリポジトリでも入手できます：
 
 ```bash
 git clone https://github.com/Tonel/rag_gpt_serp_scraping
 ```
 
-Follow the instructions in the README.md file to install the project’s dependencies and launch the project.
+README.mdファイルの手順に従って、プロジェクトの依存関係をインストールし、プロジェクトを起動してください。
 
-Keep in mind that the approach presented in this blog post can easily be adapted to any other search engine or LLM.
+なお、このブログ記事で紹介しているアプローチは、他の検索エンジンやLLMにも簡単に適用できます。
 
 > **Note**:\
-> This guide refers to Unix and macOS. If you are a Windows user, you can still follow the tutorial by using the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
+> このガイドはUnixおよびmacOSを前提としています。Windowsユーザーの方も、[Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)を使用することでチュートリアルを進められます。
 
 ### Step #1: Initialize a Python Project
 
-Make sure you have Python 3 installed on your machine. Otherwise, [download and install it](https://www.python.org/downloads/).
+マシンにPython 3がインストールされていることを確認してください。インストールされていない場合は、[download and install it](https://www.python.org/downloads/)してください。
 
-Create a folder for your project and switch to it in the terminal:
+プロジェクト用のフォルダーを作成し、ターミナルでそのフォルダーに切り替えます：
 
 ```bash
 mkdir rag_gpt_serp_scraping
@@ -68,19 +68,19 @@ mkdir rag_gpt_serp_scraping
 cd rag_gpt_serp_scraping
 ```
 
-The `rag_gpt_serp_scraping` folder will contain your Python RAG project.
+`rag_gpt_serp_scraping`フォルダーにはPythonのRAGプロジェクトが含まれます。
 
-Then, load the project directory in your favorite Python IDE. [PyCharm Community Edition](https://www.jetbrains.com/pycharm/download/) or [Visual Studio Code with the Python extension](https://code.visualstudio.com/docs/languages/python) will do.
+次に、お好みのPython IDEでプロジェクトディレクトリを読み込みます。[PyCharm Community Edition](https://www.jetbrains.com/pycharm/download/)または[Visual Studio Code with the Python extension](https://code.visualstudio.com/docs/languages/python)で問題ありません。
 
-Inside rag\_gpt\_serp\_scraping, add an empty app.py file. This will contain your scraping and RAG logic.
+rag\_gpt\_serp\_scraping内に空のapp.pyファイルを追加します。このファイルにスクレイピングとRAGのロジックを記述します。
 
-Next, initialize a [Python virtual environment](https://docs.python.org/3/library/venv.html) in the project directory:
+続いて、プロジェクトディレクトリで[Python virtual environment](https://docs.python.org/3/library/venv.html)を初期化します：
 
 ```bash
 python3 -m venv env
 ```
 
-Activate the virtual environment with the command below:
+以下のコマンドで仮想環境を有効化します：
 
 ```bash
 source ./env/bin/activate
@@ -88,27 +88,27 @@ source ./env/bin/activate
 
 ### Step #2: Install the Required Libraries
 
-This Python RAG project will be using the following dependencies:
+このPython RAGプロジェクトでは、以下の依存関係を使用します：
 
-*   [`python-dotenv`](https://pypi.org/project/python-dotenv/): It will be used to securely manage sensitive credentials, such as Bright Data credentials and OpenAI API keys.
-*   [`requests`](https://pypi.org/project/requests/): To perform HTTP requests to Bright Data’s SERP API.
-*   [`langchain-community`](https://pypi.org/project/langchain-community/): It will be used for retrieving text from the Google SERP pages and cleaning it to generate relevant content for RAG.
-*   [`openai`](https://pypi.org/project/openai/): It will be employed to interface with GPT models to generate natural language responses based on the given inputs and RAG context.
-*   [`streamlit`](https://pypi.org/project/streamlit/): It will come in handy for creating a UI where users can input their Google search queries and AI prompt, and view the results dynamically.
+*   [`python-dotenv`](https://pypi.org/project/python-dotenv/): Bright Dataの認証情報やOpenAI API keyなどの機密情報を安全に管理するために使用します。
+*   [`requests`](https://pypi.org/project/requests/): Bright DataのSERP APIに対してHTTPリクエストを実行するために使用します。
+*   [`langchain-community`](https://pypi.org/project/langchain-community/): GoogleのSERPページからテキストを取得し、RAG向けに関連コンテンツを生成できるようクリーニングするために使用します。
+*   [`openai`](https://pypi.org/project/openai/): 与えられた入力とRAGコンテキストに基づいて自然言語レスポンスを生成するため、GPTモデルと連携する目的で使用します。
+*   [`streamlit`](https://pypi.org/project/streamlit/): ユーザーがGoogle検索クエリとAIプロンプトを入力し、結果を動的に表示できるUIを作成する際に便利です。
 
-Install all the dependencies:
+すべての依存関係をインストールします：
 
 ```bash
 pip install python-dotenv requests langchain-community openai streamlit
 ```
 
-We will use [AsyncChromiumLoader](https://python.langchain.com/docs/integrations/document_loaders/async_chromium/) from langchain-community, which requires the following dependencies:
+langchain-communityの[AsyncChromiumLoader](https://python.langchain.com/docs/integrations/document_loaders/async_chromium/)を使用しますが、これには以下の依存関係が必要です：
 
 ```bash
 pip install --upgrade --quiet playwright beautifulsoup4 html2text
 ```
 
-To function properly, Playwright also requires you to install the browsers:
+また、Playwrightが正しく動作するにはブラウザのインストールも必要です：
 
 ```bash
 playwright install
@@ -116,7 +116,7 @@ playwright install
 
 ### Step #3: Prepare Your Project
 
-In `app.py`, add the following imports:
+`app.py`に以下のimportを追加します：
 
 ```python
 from dotenv import load_dotenv
@@ -134,17 +134,17 @@ from openai import OpenAI
 import streamlit as st
 ```
 
-Then, create a `.env` file in your project folder to store all your credentials. Your project structure will now look like as below:
+次に、すべての認証情報を保存するために、プロジェクトフォルダーに`.env`ファイルを作成します。プロジェクト構成は以下のようになります：
 
 ![Project structure](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-19.png)
 
-Use the function below in `app.py` to instruct `python-dotenv` to load the environment variables from `.env`:
+`app.py`で以下の関数を使用し、`python-dotenv`に`.env`から環境変数を読み込むよう指示します：
 
 ```python
 load_dotenv()
 ```
 
-You can now import environment variables from `.env` or the system with:
+これで、`.env`またはシステムから環境変数を次のようにインポートできます：
 
 ```python
 os.environ.get("<ENV_NAME>")
@@ -152,25 +152,25 @@ os.environ.get("<ENV_NAME>")
 
 ### Step #4: Configure SERP API
 
-We will use Bright Data’s SERP API to retrieve content from search engine results pages and use that in our Python RAG workflow. Specifically, we will extract text from the URLs of the web pages returned by the SERP API.
+Bright Data’s SERP APIを使用して検索エンジンの検索結果ページからコンテンツを取得し、それをPythonのRAGワークフローで利用します。具体的には、SERP APIが返すWebページURLからテキストを抽出します。
 
-To set up SERP API, refer to the [official documentation](https://docs.brightdata.com/scraping-automation/serp-api/quickstart). Alternatively, follow the instructions below.
+SERP APIのセットアップについては、[official documentation](https://docs.brightdata.com/scraping-automation/serp-api/quickstart)をご参照ください。あるいは、以下の手順に従ってください。
 
-If you have not already created an account, [sign up for Bright Data](https://brightdata.com). Once logged in, navigate to your account dashboard:
+まだアカウントを作成していない場合は、[sign up for Bright Data](https://brightdata.jp)してください。ログイン後、アカウントのダッシュボードに移動します：
 
 ![Account main dashboard](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-18.png)
 
-There, click the “Get proxy products” button.
+そこで「Get proxy products」ボタンをクリックします。
 
-That will bring you to the page below, where you have to click on the “SERP API” row:
+すると以下のページに移動するので、「SERP API」行をクリックします：
 
 ![Clicking on SERP API](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-17.png)
 
-On the SERP API product page, toggle “Activate zone” to enable the product:
+SERP APIのプロダクトページで、「Activate zone」を切り替えてプロダクトを有効化します：
 
 ![Activating the SERP zone](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-16.png)
 
-Now, copy the SERP API host, port, username, and password in the “Access parameters” section and add them to your `.env` file:
+次に、「Access parameters」セクションにあるSERP APIのhost、port、username、passwordをコピーし、`.env`ファイルに追加します：
 
 ```python
 BRIGHT_DATA_SERP_API_HOST="<YOUR_HOST>"
@@ -182,15 +182,15 @@ BRIGHT_DATA_SERP_API_USERNAME="<YOUR_USERNAME>"
 BRIGHT_DATA_SERP_API_PASSWORD="<YOUR_PASSWORD>"
 ```
 
-Replace the `<YOUR_XXXX>` placeholders with the values provided by Bright Data on the SERP API page.
+`<YOUR_XXXX>`プレースホルダーを、SERP APIページでBright Dataが提供する値に置き換えてください。
 
-Note that the host in “Access parameters” has a format like this:
+「Access parameters」のhostは、次のような形式である点にご注意ください：
 
 ```python
 brd.superproxy.io:33335
 ```
 
-Split it as below:
+以下のように分割してください：
 
 ```python
 BRIGHT_DATA_SERP_API_HOST="brd.superproxy.io"
@@ -200,7 +200,7 @@ BRIGHT_DATA_SERP_API_PORT=33335
 
 ### Step #5: Implement the SERP Scraping Logic
 
-In `app.py`, add the following function to retrieve the first `number_of_urls` URLs from a Google SERP page:
+`app.py`に以下の関数を追加して、GoogleのSERPページから最初の`number_of_urls`件のURLを取得します：
 
 ```python
 def get_google_serp_urls(query, number_of_urls=5):
@@ -246,7 +246,7 @@ google_serp_urls.append(item["link"])
 return google_serp_urls[:number_of_urls]
 ```
 
-This makes an HTTP GET request to SERP API with the search query specified in the query argument. The [`brd_json=1`](https://docs.brightdata.com/scraping-automation/serp-api/parsing-search-results) query parameter ensures that SERP API parses the results into JSON for you, in the format below:
+この関数は、query引数で指定された検索クエリを使ってSERP APIにHTTP GETリクエストを送信します。[`brd_json=1`](https://docs.brightdata.com/scraping-automation/serp-api/parsing-search-results)クエリパラメータにより、SERP APIが結果を以下の形式でJSONにパースしてくれます：
 
 ```json
 {
@@ -338,11 +338,11 @@ This makes an HTTP GET request to SERP API with the search query specified in th
 }
 ```
 
-The last few lines of the function retrieve each SERP URL from the resulting JSON data, select only the first `number_of_urls` URLs, and return them in a list.
+関数の最後の数行では、結果のJSONデータから各SERP URLを取得し、最初の`number_of_urls`件のURLだけを選択して、リストとして返します。
 
 ### Step #6: Extract Text from the SERP URLs
 
-Define a function that extracts text from each of the SERP URLs:
+各SERP URLからテキストを抽出する関数を定義します：
 
 ```python
 # Note: Some websites may have dynamic content or anti-scraping measures that could prevent text extraction.
@@ -402,30 +402,30 @@ extracted_text_list.append(extracted_text)
 return extracted_text_list
 ```
 
-This function:
+この関数は次の処理を行います：
 
-1.  Loads web pages from the URLs passed as an argument using a headless Chrome browser instance.
-2.  Utilizes [BeautifulSoupTransformer](https://python.langchain.com/v0.2/api_reference/community/document_transformers/langchain_community.document_transformers.beautiful_soup_transformer.BeautifulSoupTransformer.html) to process the HTML of each page and extract text from specific tags (like `<p>`, `<h1>`, `<strong>`, etc.), omitting unwanted tags (like `<a>`) and comments.
-3.  Limits the extracted text for each webpage to a number of words specified by the `number_of_words` argument.
-4.  Returns a list of the extracted text from each URL.
+1.  引数として渡されたURLから、headless Chromeブラウザインスタンスを使ってWebページを読み込みます。
+2.  [BeautifulSoupTransformer](https://python.langchain.com/v0.2/api_reference/community/document_transformers/langchain_community.document_transformers.beautiful_soup_transformer.BeautifulSoupTransformer.html)を利用して各ページのHTMLを処理し、特定のタグ（`<p>`, `<h1>`, `<strong>`など）からテキストを抽出し、不要なタグ（`<a>`など）やコメントを除外します。
+3.  各Webページから抽出するテキストを、`number_of_words`引数で指定した単語数に制限します。
+4.  各URLから抽出したテキストのリストを返します。
 
-While the `["p", "em", "li", "strong", "h1", "h2"]` tags are enough to extract text from most web pages, in some specific scenarios, you may need to customize this list of HTML tags. Also, you might have to increase or decrease the target number of words for each text item.
+`["p", "em", "li", "strong", "h1", "h2"]`タグでほとんどのWebページからテキストを抽出できますが、特定のシナリオではこのHTMLタグのリストをカスタマイズする必要がある場合があります。また、各テキスト項目の対象単語数を増減する必要があるかもしれません。
 
-For example, consider the [web page below](https://athomeinhollywood.com/2024/09/19/transformers-one-review/):
+たとえば、以下の[Webページ](https://athomeinhollywood.com/2024/09/19/transformers-one-review/)を考えてみてください：
 
 ![Transformers one review page](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-15.png)
 
-Applying that function to that page will result in this text array:
+この関数をそのページに適用すると、次のテキスト配列になります：
 
 ```python
 ["Lisa Johnson Mandell’s Transformers One review reveals the heretofore inconceivable: It’s one of the best animated films of the year! I never thought I’d see myself write this about a Transformers movie, but Transformers One is actually an exceptional film! ..."]
 ```
 
-The list of text items returned by `extract_text_from_urls()` represents the RAG context to feed to the OpenAI model.
+`extract_text_from_urls()`が返すテキスト項目のリストは、OpenAIモデルに投入するRAGコンテキストを表します。
 
 ### Step #7: Generate the RAG Prompt
 
-Define a function that transforms the AI prompt request and text context into the final RAG prompt:
+AIプロンプトのリクエストとテキストコンテキストを、最終的なRAGプロンプトに変換する関数を定義します：
 
 ```python
 def get_openai_prompt(request, text_context=[]):
@@ -445,7 +445,7 @@ prompt = f"Answer the request using only the context below.\n\nContext:\n{contex
 return prompt
 ```
 
-Prompts returned by the previous function when a RAG context is specified have this format:
+RAGコンテキストが指定された場合、前の関数が返すプロンプトは次の形式になります：
 
 ```
 Answer the request using only the context below.
@@ -467,19 +467,19 @@ Request: <YOUR_REQUEST>
 
 ### Step #8: Perform the GPT Request
 
-First, initialize the OpenAI client at the top of the `app.py` file:
+まず、`app.py`ファイルの先頭でOpenAIクライアントを初期化します：
 
 ```python
 openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 ```
 
-This relies on the `OPENAI_API_KEY` environment variable, which you can define directly in your system’s environments or in the `.env` file:
+これは`OPENAI_API_KEY`環境変数に依存しており、システムの環境変数として直接定義するか、`.env`ファイルに定義できます：
 
 `OPENAI_API_KEY="<YOUR_API_KEY>"`
 
-Replace `<YOUR_API_KEY>` with the value of your [OpenAI API key](https://platform.openai.com/api-keys). If you do not know how to get one, follow the [official guide](https://platform.openai.com/docs/quickstart).
+`<YOUR_API_KEY>`を、あなたの[OpenAI API key](https://platform.openai.com/api-keys)の値に置き換えてください。取得方法が分からない場合は、[official guide](https://platform.openai.com/docs/quickstart)に従ってください。
 
-Next, write a function that uses the OpenAI official client to perform a request to the [GPT-4o mini](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) AI model:
+次に、OpenAI公式クライアントを使用して、[GPT-4o mini](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) AIモデルへリクエストを実行する関数を書きます：
 
 ```python
 def interrogate_openai(prompt, max_tokens=800):
@@ -500,18 +500,18 @@ return response.choices[0].message.content
 ```
 
 > **Note**:\
-> You can configure any other GPT model supported by the OpenAI API.
+> OpenAI APIがサポートする他のGPTモデルも設定できます。
 
-If called with a prompt returned by `get_openai_prompt()` that includes a specified text context, `interrogate_openai()` will successfully perform retrieval-augmented generation as intended.
+`get_openai_prompt()`が返す、指定されたテキストコンテキストを含むプロンプトで呼び出した場合、`interrogate_openai()`は意図どおりに検索拡張生成を正常に実行します。
 
 ### Step #9: Create the Application UI
 
-Use Streamlit to define a simple [form UI](https://docs.streamlit.io/develop/concepts/architecture/forms) where users can specify:
+Streamlitを使用して、ユーザーが以下を指定できるシンプルな[form UI](https://docs.streamlit.io/develop/concepts/architecture/forms)を定義します：
 
-1.  The Google search query to pass to the SERP API
-2.  The AI prompt to send to GPT-4o mini
+1.  SERP APIに渡すGoogle検索クエリ
+2.  GPT-4o miniへ送信するAIプロンプト
 
-To do that, use this code:
+そのために、次のコードを使用します：
 
 ```python
 with st.form("prompt_form"):
@@ -565,11 +565,11 @@ final_prompt_expander.write(final_prompt)
 st.write(result)
 ```
 
-The Python RAG script is ready.
+これでPythonのRAGスクリプトは準備完了です。
 
 ### Step #10: Put It All Together
 
-Your `app.py` file should contain the following code:
+`app.py`ファイルには以下のコードが含まれているはずです：
 
 ```python
 from dotenv import load_dotenv
@@ -777,13 +777,13 @@ st.write(result)
 
 ### Step #11: Test the Application
 
-Launch your Python RAG application with:
+以下でPython RAGアプリケーションを起動します：
 
 ```bash
 # Note: Streamlit is designed for lightweight applications. For production-grade deployments, consider using frameworks like Flask or FastAPI.
 streamlit run app.py
 ```
-In the terminal, you should see the following output:
+ターミナルには次の出力が表示されるはずです：
 
 ```
 You can now view your Streamlit app in your browser.
@@ -793,34 +793,34 @@ Local URL: http://localhost:8501
 Network URL: http://172.27.134.248:8501
 ```
 
-Follow the instructions, and visit `http://localhost:8501` in the browser. Below is what you should be seeing:
+指示に従い、ブラウザで`http://localhost:8501`にアクセスしてください。以下のような画面が表示されるはずです：
 
 ![Streamlit app screenshot](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-14.png)
 
-Test the application by using a Google search query as below:
+次のようなGoogle検索クエリを使用してアプリケーションをテストします：
 
 ```
 Transformers One review
 ```
 
-And an AI prompt as follows:
+そして、AIプロンプトは次のとおりです：
 
 ```
 Write a review for the movie Transformers One
 ```
 
-Click “Send” and wait while your application processes the request. After a few seconds, you should get a result like this:
+「Send」をクリックし、アプリケーションがリクエストを処理するのを待ちます。数秒後、以下のような結果が得られるはずです：
 
 ![App result screenshot](https://github.com/luminati-io/rag-chatbot/blob/main/Images/image-13.png)
 
-If you expand the “AI Final Prompt” dropdown, you will see the complete prompt used by the application for RAG.
+「AI Final Prompt」ドロップダウンを展開すると、アプリケーションがRAGに使用した完全なプロンプトを確認できます。
 
 ## Conclusion
 
-The major challenge with using a Python RAG chatbot is scraping search engines like Google:
+PythonのRAGチャットボットを使用する際の主要な課題は、Googleのような検索エンジンをスクレイピングすることです：
 
-1. They frequently alter the structure of their SERP pages.
-2. They are protected by some of the most sophisticated anti-bot measures available.
-3. Retrieving large volumes of SERP data concurrently is complex and can be expensive.
+1. SERPページの構造が頻繁に変更されます。
+2. 利用可能な中でも最も洗練されたアンチボット対策の一部によって保護されています。
+3. 大量のSERPデータを同時接続で取得するのは複雑で、コストが高くなる場合があります。
 
-[Bright Data’s SERP API](https://brightdata.com/products/serp-api) helps you retrieve real-time SERP data from all major search engines with no effort. It also supports RAG and many other applications. Get your free trial now!
+[Bright Data’s SERP API](https://brightdata.jp/products/serp-api)は、主要な検索エンジンすべてからリアルタイムのSERPデータを手間なく取得するのに役立ちます。また、RAGやその他多くのアプリケーションもサポートします。今すぐ無料トライアルを開始してください！
